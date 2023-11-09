@@ -20,7 +20,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/category', [CategoryController::class,'index'])->middleware();
+
+
+// Route::group(['middleware' => ['filament.auth']], function () {
+    
+// });
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/category', [CategoryController::class,'index']);
+    // Your protected routes here
+});
+
 
 // Route::group(['middleware' => ['filament.auth']], function () {
 // });
