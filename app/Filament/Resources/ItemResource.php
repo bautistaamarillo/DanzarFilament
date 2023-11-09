@@ -26,9 +26,15 @@ class ItemResource extends Resource
                 Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255),
+                Forms\Components\Select::make('amount'),
                 Forms\Components\Select::make('category_id')
-                ->options([
-                    // 'cat' => 'Cat',
+                ->relationship('category', 'name')
+                ->searchable()
+                ->preload()
+                ->createOptionForm([
+                    Forms\Components\TextInput::make('name')
+                        ->required()
+                        ->maxLength(255),
                 ])
                 ->required(),
             ]);
@@ -38,7 +44,11 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('amount'),
+                Tables\Columns\TextColumn::make('category.name')
+                ->searchable(),
             ])
             ->filters([
                 //
