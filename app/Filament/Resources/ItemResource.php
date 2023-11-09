@@ -26,7 +26,10 @@ class ItemResource extends Resource
                 Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255),
-                Forms\Components\Select::make('amount'),
+                Forms\Components\TextInput::make('amount')
+                ->numeric()
+                ->prefix('$')
+                ->maxValue(42949672.95),
                 Forms\Components\Select::make('category_id')
                 ->relationship('category', 'name')
                 ->searchable()
@@ -45,13 +48,18 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                ->sortable()
                 ->searchable(),
-                Tables\Columns\TextColumn::make('amount'),
+                Tables\Columns\TextColumn::make('amount')
+                ->numeric()
+                ->prefix('$')
+                ->sortable(),
                 Tables\Columns\TextColumn::make('category.name')
+                ->sortable()
                 ->searchable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('category.name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
