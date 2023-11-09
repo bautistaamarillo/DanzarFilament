@@ -27,7 +27,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name'),
-                DatePicker::make('fecha'),
+                
             ]);
     }
 
@@ -35,9 +35,9 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-				TextColumn::make('fecha')
-                ->dateTime('d/m/y'),
+                TextColumn::make('name')
+                ->searchable(),
+				
             ])
             ->filters([
                 //
