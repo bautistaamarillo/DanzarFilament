@@ -13,4 +13,5 @@ class Category extends Model
     
         
     ];
+    
 }
