@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
 
 class StudentResource extends Resource
 {
@@ -24,18 +25,38 @@ class StudentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+        ->schema([
+            TextInput::make('name'),
+            TextInput::make('last_name'),
+            TextInput::make('address'),
+            TextInput::make('dni')
+            ->numeric(),
+            TextInput::make('phone_number')
+            ->tel()
+            ->label('Phone Number'),
+            TextInput::make('observations'),
+            DatePicker::make('birthdate'),
+
+            
+
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                ->sortable()
+                ->searchable(),
 				TextColumn::make('last_name')
-                // ->dateTime('d/m/y'),
+                ->searchable(),
+                TextColumn::make('dni')
+                ->searchable()
+                ->numeric(),
+                TextColumn::make('phone_number'),
+            
+               
             ])
             ->filters([
                 //

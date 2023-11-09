@@ -19,6 +19,10 @@ class StudentFactory extends Factory
         return [
             'name' => fake()->name(),
             'last_name' => fake()->lastname(),
+            'address' => fake()->address(),
+            'dni' => fake()->randomNumber(8, true),
+            'phone_number' =>fake()->e164PhoneNumber(),
+            'observations' =>fake()->sentence(),
             'birthdate' => fake()->date(),
            
         ];

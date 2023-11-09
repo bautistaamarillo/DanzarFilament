@@ -15,10 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
+            $table->string('address');
+            $table->string('dni')->unique();
+            $table->string('phone_number');
+            $table->string('observations');
             $table->timestamp('birthdate');
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
