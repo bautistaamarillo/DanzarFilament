@@ -26,18 +26,26 @@ class StudentResource extends Resource
     {
         return $form
         ->schema([
-            TextInput::make('name'),
-            TextInput::make('last_name'),
-            TextInput::make('address'),
+            TextInput::make('name')
+            ->required()
+            ->maxLength(255)
+            ->required(),
+            TextInput::make('last_name')
+            ->required()
+            ->maxLength(255)
+            ->required(),
+            TextInput::make('address')
+            ->required(),
             TextInput::make('dni')
-            ->numeric(),
+            ->numeric()
+            ->required(),
             TextInput::make('phone_number')
             ->tel()
-            ->label('Phone Number'),
+            ->label('Phone Number')
+            ->required(),
             TextInput::make('observations'),
-            DatePicker::make('birthdate'),
-
-            
+            DatePicker::make('birthdate')
+            ->required(),
 
         ]);
     }
@@ -50,13 +58,16 @@ class StudentResource extends Resource
                 ->sortable()
                 ->searchable(),
 				TextColumn::make('last_name')
+                ->sortable()
                 ->searchable(),
                 TextColumn::make('dni')
+                ->sortable()
                 ->searchable()
                 ->numeric(),
-                TextColumn::make('phone_number'),
+                TextColumn::make('phone_number')
+                ->sortable()
+                ->searchable(),
             
-               
             ])
             ->filters([
                 //

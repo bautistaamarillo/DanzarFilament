@@ -26,7 +26,9 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name'),
+                TextInput::make('name')
+                ->required()
+                ->maxLength(255),
                 
             ]);
     }
@@ -36,7 +38,9 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->searchable(),
+                ->sortable()
+                ->searchable()
+                ->required(),
 				
             ])
             ->filters([

@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\DatePicker;
 
 class PaymentResource extends Resource
 {
@@ -23,9 +26,13 @@ class PaymentResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('student_id'),
-                TextInput::make('date'),
-                DatePicker::make('invoice_number'),
+                TextInput::make('student.name')
+                ->required(),
+                Datepicker::make('date')
+                ->required(),
+                TextInput::make('invoice_number')
+                ->required()
+                ->numeric(),
             ]);
     }
 
@@ -33,9 +40,16 @@ class PaymentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('student_id'),
-				TextColumn::make('date'),
-                TextColumn::make('invoice_number'),
+                TextColumn::make('student.name')
+                ->sortable()
+                ->searchable(),
+				TextColumn::make('date')
+                ->sortable()
+                ->searchable(),
+                TextColumn::make('invoice_number')
+                ->sortable()
+                ->searchable()
+                ->numeric(),
 				
             ])
             ->filters([

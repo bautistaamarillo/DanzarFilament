@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_items', function (Blueprint $table) {
+        Schema::create('item_payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("payment_id")->nullable();
             $table->unsignedBigInteger("item_id")->nullable();
+            $table->unsignedBigInteger("payment_id")->nullable();
             $table->integer("amount");
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_items');
+        Schema::dropIfExists('item_payments');
     }
 };

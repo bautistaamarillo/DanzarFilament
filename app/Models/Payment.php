@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Payment extends Model
@@ -15,8 +16,13 @@ class Payment extends Model
         'invoice_number',
         
     ];
+
     public function items(): BelongsToMany
     {
-        return $this->belongsToMany(Tutor::class,"item_payments");
+        return $this->belongsToMany(Item::class,"item_payments");
+    }
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
     }
 }

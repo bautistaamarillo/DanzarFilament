@@ -12,6 +12,13 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
 
 class ItemResource extends Resource
 {
@@ -23,19 +30,20 @@ class ItemResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                 ->required()
                 ->maxLength(255),
-                Forms\Components\TextInput::make('amount')
+                TextInput::make('amount')
+                ->required()
                 ->numeric()
                 ->prefix('$')
-                ->maxValue(42949672.95),
-                Forms\Components\Select::make('category_id')
+                ->maxValue(4992999949996799992.95),
+                Select::make('category_id')
                 ->relationship('category', 'name')
                 ->searchable()
                 ->preload()
                 ->createOptionForm([
-                    Forms\Components\TextInput::make('name')
+                    TextInput::make('name')
                         ->required()
                         ->maxLength(255),
                 ])
@@ -47,26 +55,27 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                 ->sortable()
                 ->searchable(),
-                Tables\Columns\TextColumn::make('amount')
+                TextColumn::make('amount')
                 ->numeric()
                 ->prefix('$')
                 ->sortable(),
-                Tables\Columns\TextColumn::make('category.name')
+                TextColumn::make('category.name')
                 ->sortable()
                 ->searchable(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('category.name')
+                SelectFilter::make('category')
+                ->relationship('category', 'name')
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
