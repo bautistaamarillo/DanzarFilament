@@ -16,9 +16,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
 
 class ItemResource extends Resource
 {
@@ -71,11 +68,11 @@ class ItemResource extends Resource
                 ->relationship('category', 'name')
             ])
             ->actions([
-                EditAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
