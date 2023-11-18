@@ -17,7 +17,7 @@ class Item extends Model
     }
     public function payments(): BelongsToMany
     {
-        return $this->belongsToMany(Item::class,"item_payments");
+        return $this->belongsToMany(Payment::class,"item_payments");
     }
     public function category(): BelongsTo
     {
