@@ -28,7 +28,8 @@ class CategoryResource extends Resource
             ->schema([
                 TextInput::make('name')
                 ->required()
-                ->maxLength(255),
+                ->maxLength(255)
+                ->required(),
                 
             ]);
     }
@@ -39,8 +40,7 @@ class CategoryResource extends Resource
             ->columns([
                 TextColumn::make('name')
                 ->sortable()
-                ->searchable()
-                ->required(),
+                ->searchable(),
 				
             ])
             ->filters([
