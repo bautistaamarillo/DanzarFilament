@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 
 class PaymentResource extends Resource
@@ -26,7 +27,10 @@ class PaymentResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('student.name')
+                Select::make('student_id')
+                ->relationship('student', 'name')
+                ->searchable()
+                ->preload()
                 ->required(),
                 Datepicker::make('date')
                 ->required(),
