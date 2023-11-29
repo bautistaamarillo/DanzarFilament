@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('amount');
+            $table->integer('price');
             $table->unsignedBigInteger('category_id')->references('id')->on('categories');
             $table->timestamps();
         });

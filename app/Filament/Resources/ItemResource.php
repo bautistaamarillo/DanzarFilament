@@ -27,24 +27,39 @@ class ItemResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                ->required()
-                ->maxLength(255),
-                TextInput::make('amount')
-                ->required()
-                ->numeric()
-                ->prefix('$')
-                ->maxValue(4992999949996799992.95),
-                Select::make('category_id')
-                ->relationship('category', 'name')
-                ->searchable()
-                ->preload()
-                ->createOptionForm([
-                    TextInput::make('name')
-                        ->required()
-                        ->maxLength(255),
-                ])
-                ->required(),
+                Forms\Components\Group::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->prefix('$')
+                            ->maxValue(4992999949996799992.95),
+                        Select::make('category_id')
+                            ->relationship('category', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->createOptionForm([
+                                TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                            ])
+                            ->required(),
+                    ]),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Creado')
+                            ->content(fn (Item $record): ?string => $record->created_at?->diffForHumans()),
+
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Ultima modificación')
+                            ->content(fn (Item $record): ?string => $record->updated_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Item $record) => $record === null),
             ]);
     }
 
@@ -53,19 +68,19 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->sortable()
-                ->searchable(),
-                TextColumn::make('amount')
-                ->numeric()
-                ->prefix('$')
-                ->sortable(),
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->numeric()
+                    ->prefix('$')
+                    ->sortable(),
                 TextColumn::make('category.name')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 SelectFilter::make('category')
-                ->relationship('category', 'name')
+                    ->relationship('category', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -76,14 +91,14 @@ class ItemResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -91,5 +106,5 @@ class ItemResource extends Resource
             'create' => Pages\CreateItem::route('/create'),
             'edit' => Pages\EditItem::route('/{record}/edit'),
         ];
-    }    
+    }
 }

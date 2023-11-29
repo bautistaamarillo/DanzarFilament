@@ -25,29 +25,43 @@ class StudentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-        ->schema([
-            TextInput::make('name')
-            ->required()
-            ->maxLength(255)
-            ->required(),
-            TextInput::make('last_name')
-            ->required()
-            ->maxLength(255)
-            ->required(),
-            TextInput::make('address')
-            ->required(),
-            TextInput::make('dni')
-            ->numeric()
-            ->required(),
-            TextInput::make('phone_number')
-            ->tel()
-            ->label('Phone Number')
-            ->required(),
-            TextInput::make('observations'),
-            DatePicker::make('birthdate')
-            ->required(),
+            ->schema([
+                Forms\Components\Group::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255)
+                            ->required(),
+                        TextInput::make('last_name')
+                            ->required()
+                            ->maxLength(255)
+                            ->required(),
+                        TextInput::make('address')
+                            ->required(),
+                        TextInput::make('dni')
+                            ->numeric()
+                            ->required(),
+                        TextInput::make('phone_number')
+                            ->tel()
+                            ->label('Phone Number')
+                            ->required(),
+                        TextInput::make('observations'),
+                        DatePicker::make('birthdate')
+                            ->required(),
+                    ]),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('created_at')
+                            ->label('Creado')
+                            ->content(fn (Student $record): ?string => $record->created_at?->diffForHumans()),
 
-        ]);
+                        Forms\Components\Placeholder::make('updated_at')
+                            ->label('Ultima modificación')
+                            ->content(fn (Student $record): ?string => $record->updated_at?->diffForHumans()),
+                    ])
+                    ->columnSpan(['lg' => 1])
+                    ->hidden(fn (?Student $record) => $record === null),
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -55,19 +69,19 @@ class StudentResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->sortable()
-                ->searchable(),
-				TextColumn::make('last_name')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('last_name')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('dni')
-                ->sortable()
-                ->searchable()
-                ->numeric(),
+                    ->sortable()
+                    ->searchable()
+                    ->numeric(),
                 TextColumn::make('phone_number')
-                ->sortable()
-                ->searchable(),
-            
+                    ->sortable()
+                    ->searchable(),
+
             ])
             ->filters([
                 //
@@ -81,14 +95,14 @@ class StudentResource extends Resource
                 ]),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             RelationManagers\ItemsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -96,5 +110,5 @@ class StudentResource extends Resource
             'create' => Pages\CreateStudent::route('/create'),
             'edit' => Pages\EditStudent::route('/{record}/edit'),
         ];
-    }    
+    }
 }
