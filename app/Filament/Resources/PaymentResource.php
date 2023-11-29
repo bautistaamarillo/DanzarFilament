@@ -18,6 +18,10 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Set;
+use Filament\Forms\Get;
+use App\Models\Student;
+
+use function Laravel\Prompts\alert;
 
 class PaymentResource extends Resource
 {
@@ -41,17 +45,27 @@ class PaymentResource extends Resource
                         TextInput::make('number')
                             ->required()
                             ->numeric(),
-                        TextInput::make('price')
+                        TextInput::make('amount')
                             ->required()
                             ->numeric()
                             ->prefix('$')
                             ->maxValue(4992999949996799992.95)
                             ->hintAction(
-                                Action::make('calcularTotal')
+                                Action::make('calcularTotalDeItemsVinculadosAlEstudiante')
                                     ->icon('heroicon-m-banknotes')
                                     ->requiresConfirmation()
-                                    ->action(function (Set $set, $state) {
-                                        $set('price', $state);
+                                    ->action(function (Get $get, Set $set) {
+                                        $student_id = $get('student_id');
+                                        $student = Student::query()
+                                        ->where('id', $student_id)
+                                        ->with('items')
+                                        ->first();
+                                        $prices = $student->items
+                                        ->pluck('price')
+                                        ->toArray();
+                                        $total = array_sum($prices);
+                                        // dd($total);
+                                        $set('price', $total);
                                     })
                             ),
                     ]),
@@ -84,7 +98,7 @@ class PaymentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->numeric(),
-                TextColumn::make('price')
+                TextColumn::make('amount')
                     ->numeric()
                     ->prefix('$')
                     ->sortable(),

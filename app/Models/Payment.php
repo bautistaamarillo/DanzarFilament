@@ -13,7 +13,8 @@ class Payment extends Model
     protected $fillable = [
         'student_id',
         'date',
-        'invoice_number',
+        'number',
+        'amount',
         
     ];
 

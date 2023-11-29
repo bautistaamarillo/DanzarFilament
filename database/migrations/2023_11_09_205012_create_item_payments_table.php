@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("item_id")->nullable();
             $table->unsignedBigInteger("payment_id")->nullable();
-            $table->integer("price");
+            $table->integer("amount");
             $table->timestamps();
         });
     }

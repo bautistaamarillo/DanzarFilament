@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id')->nullable();
             $table->date("date");
             $table->integer("number"); //numero de factura o recibo
-            $table->integer("price");
+            $table->integer("amount");
             $table->timestamps();
         });
     }

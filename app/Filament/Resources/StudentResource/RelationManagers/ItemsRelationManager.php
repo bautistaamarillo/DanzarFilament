@@ -25,7 +25,7 @@ class ItemsRelationManager extends RelationManager
             TextInput::make('name')
             ->required()
             ->maxLength(255),
-            TextInput::make('amount')
+            TextInput::make('price')
             ->required()
             ->numeric()
             ->prefix('$')
@@ -51,7 +51,7 @@ class ItemsRelationManager extends RelationManager
                 TextColumn::make('name')
                 ->sortable()
                 ->searchable(),
-                TextColumn::make('amount')
+                TextColumn::make('price')
                 ->numeric()
                 ->prefix('$')
                 ->sortable(),
