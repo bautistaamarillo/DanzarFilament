@@ -65,7 +65,7 @@ class PaymentResource extends Resource
                                         ->toArray();
                                         $total = array_sum($prices);
                                         // dd($total);
-                                        $set('price', $total);
+                                        $set('amount', $total);
                                     })
                             ),
                     ]),
