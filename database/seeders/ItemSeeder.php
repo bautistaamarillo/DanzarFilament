@@ -38,5 +38,40 @@ class ItemSeeder extends Seeder
             'price'=> 2500,
             'category_id'=> 2,
         ]);
+
+// INSCRIPCIONES 
+
+        DB::table('items')->insert([
+            'name'=> 'Inscripción arabe',
+            'price'=> 10000,
+            'category_id'=> 1,
+        ]);
+        DB::table('items')->insert([
+            'name'=> 'Inscripción clásico',
+            'price'=> 5000,
+            'category_id'=> 1,
+        ]);
+        DB::table('items')->insert([
+            'name'=> 'Inscripción brasilero',
+            'price'=> 7500,
+            'category_id'=> 1,
+        ]);
+        DB::table('items')->insert([
+            'name'=> 'Inscripción contemporaneo',
+            'price'=> 12000,
+            'category_id'=> 1,
+        ]);
+        DB::table('items')->insert([
+            'name'=> 'Inscripción hip-hop',
+            'price'=> 4000,
+            'category_id'=> 1,
+        ]);
+
+
+
+
+
+
+
     }
 }
