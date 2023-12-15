@@ -66,6 +66,16 @@ class ItemSeeder extends Seeder
             'price'=> 4000,
             'category_id'=> 1,
         ]);
+        DB::table('items')->insert([
+            'name'=> 'Viaje a Neuquen 2024',
+            'price'=> 18000,
+            'category_id'=> 3,
+        ]);
+        DB::table('items')->insert([
+            'name'=> 'Inscripcion para (Bailemos) Neuquen 2024',
+            'price'=> 4700,
+            'category_id'=> 3,
+        ]);
 
 
 
