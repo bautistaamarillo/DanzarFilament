@@ -1,3 +1,37 @@
+# Instrucciones para Probar el Sistema
+
+Para comenzar a utilizar este proyecto, siga los pasos a continuación.
+
+### Requisitos
+
+- **Composer** instalado en su sistema.
+- **PHP** versión 8.1.
+
+### Pasos de Instalación
+
+1. Abra una consola en su entorno de desarrollo (por ejemplo: `C:/Laragon/www`).
+2. Clone el repositorio ejecutando:
+   ```bash
+   git clone https://github.com/bautistaamarillo/DanzarFilament.git
+3. Inicie Apache y abra su gestor de bases de datos.
+4. Cree una base de datos vacía con el nombre que desee.
+5. Dentro del proyecto DanzarFilament, localice el archivo .env.example, elimine la extensión .example y modifique el valor del campo DB_DATABASE para que coincida con el nombre de la base de datos que creó.
+6. Abra la consola en la carpeta del proyecto y ejecute:
+    ```bash
+    composer update
+7. A continuación, ejecute el siguiente comando para crear la estructura de la base de datos y añadir datos de prueba:
+    ```bash
+    php artisan migrate:fresh --seed
+8. Acceda a la URL del host local del proyecto seguido de /admin, por ejemplo:
+- http://danzarfilament.test/admin
+9. Puede iniciar sesión con el usuario predeterminado:
+    - Email: admin@example.com
+    - Contraseña: admin
+<h3>Solución de problemas</h3>
+Si tiene problemas para conectarse a la base de datos, verifique su configuración en el archivo .env.<br>
+Asegúrese de que el servidor Apache esté en funcionamiento.<br>
+Si el comando composer update falla, asegúrese de tener la versión correcta de PHP y Composer instalados.<br>
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
